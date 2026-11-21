@@ -3,13 +3,12 @@
 Application interactive pour la partie de P7 : le public répond à 6 situations sur son téléphone,
 chacun apparaît sur la matrice courage / prévenance de Covey, puis reçoit son profil et son défi.
 
-## Les 3 pages
+## Les 2 pages
 
 | Adresse | Pour qui | Rôle |
 |---|---|---|
-| `/` | Le public (téléphone) | Questionnaire, attente, profil personnel |
-| `/screen` | Le grand écran | QR code + compteur, puis la carte de la salle |
-| `/admin` | Un membre du groupe (téléphone) | Boutons du déroulé, protégés par un PIN |
+| `/` | Le public (téléphone, via le QR code) | Questionnaire, attente, profil et conseil |
+| `/screen` | Le grand écran | QR code, compteur, minuteur, carte, récapitulatif + **les commandes** (PIN) |
 
 ## Tester tout de suite sans base (mode démo)
 
@@ -18,15 +17,16 @@ npm install
 npm run dev
 ```
 
-Ouvrez dans **le même navigateur**, dans trois onglets : `/admin` (PIN : `demo`), `/screen` et `/`.
+Ouvrez dans **le même navigateur**, dans deux onglets : `/screen` (PIN : `demo`) et `/`.
 Le mode démo garde les données dans le navigateur : il sert à répéter, pas à la vraie présentation.
 
 ## Mise en ligne (environ 15 minutes)
 
 ### 1. Supabase
 1. Créez un projet sur supabase.com (offre gratuite).
-2. **SQL Editor → New query** : collez `supabase/schema.sql`.
-   **Changez le PIN** à la dernière ligne (`'2468'`), puis **Run**.
+2. **SQL Editor → New query** : collez `supabase/schema.sql`, puis **Run**.
+   Le script fonctionne aussi sur une base qui a déjà la version 1, et il garde le PIN existant.
+   Pour changer le PIN : décommentez la dernière ligne, mettez votre code, **Run**.
 3. **Project Settings → API** : copiez l'**URL du projet** et la **clé anon** (ou *publishable*).
 
 ### 2. Vercel
@@ -42,13 +42,20 @@ Le QR code affiche automatiquement l'adresse du site. Un nom de domaine court
 
 ## Le jour J
 
-1. **Avant la présentation** : `/admin` → *Remettre à zéro* (efface l'affichage des répétitions).
-   Ouvrez `/screen` en plein écran (F11) dans un onglet à côté de Canva.
-2. **Début de la partie P7** : basculez sur l'onglet `/screen` → admin *2 · Ouvrir le questionnaire*.
-3. Après ~90 s : *3 · Révéler la carte* (les points apparaissent un par un).
-4. *Commenter une zone* : cliquez une zone après l'autre, puis *Vue d'ensemble*.
-5. *4 · Révéler les profils* : chaque téléphone affiche le profil et le défi.
-6. Retour à Canva pour la slide de conclusion.
+1. **Avant la présentation** : ouvrez `/screen`, tapez le PIN, menu `⋯` → *Remettre à zéro*.
+   Passez en plein écran (bouton `⤢` ou touche **F**) dans un onglet à côté de Canva.
+2. **Début de la partie P7** : *Lancer le questionnaire · 3 min*.
+3. À la fin du temps : *+ 1 min* si besoin, sinon *Afficher les résultats*
+   → la carte s'affiche à l'écran **et** le profil sur chaque téléphone, en même temps.
+4. Récapitulatif en 5 étapes avec les flèches `←` `→` de la barre (ou du clavier / d'une télécommande
+   de présentation) : la carte · céder ou imposer · perdre ensemble ? · la maturité · conclusion.
+5. Retour à Canva si besoin.
+
+La barre de commandes se cache quand la souris ne bouge plus ; bougez la souris pour la faire revenir.
+
+**Raccourcis** : `→` / `Espace` / `Page suivante` = étape suivante (lance le questionnaire, puis
+affiche les résultats seulement quand le temps est écoulé), `←` = étape précédente, `+` = une minute
+de plus, `F` = plein écran.
 
 ## Répétition générale (indispensable)
 
@@ -62,7 +69,7 @@ Le QR code affiche automatiquement l'adresse du site. Un nom de domaine court
 
 ## Modifier le contenu
 
-Tout le texte (questions, barème, citations, défis) est dans `src/content.js`.
+Tout le texte (questions, barème, conseils, étapes du récapitulatif) est dans `src/content.js`.
 Les logos sont dans `public/` (`logo-ensa.png`, `logo-gcdste.png`) : remplacez-les par
 les fichiers d'origine en haute définition si vous les avez.
 

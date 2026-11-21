@@ -69,31 +69,23 @@ export const QUESTIONS = [
 export const ZONES = {
   gg: {
     label: "Gagnant / gagnant",
-    quote: "Courage et respect d'autrui sont deux qualités requises pour pouvoir gagner ensemble.",
-    desc: "Tu combines franchise et écoute : c'est ce que Covey appelle la maturité.",
-    defi: "Repère autour de toi une personne qui gagne avec les autres, même dans les situations difficiles, et observe comment elle fait. Puis deviens ce modèle pour quelqu'un.",
-    sugg: "Suggestion 6",
+    desc: "Dans ces situations, tu combines franchise et écoute.",
+    conseil: "Garde ce réflexe : écouter avant de proposer.",
   },
   gp: {
     label: "Gagnant / perdant",
-    quote: "Si j'ai beaucoup de courage, mais peu de respect pour vous, j'aurai tendance à vouloir gagner en vous laissant vaincu.",
-    desc: "Tu sais défendre ce que tu veux. Le risque : que l'autre ait l'impression de perdre, et que la relation en paie le prix.",
-    defi: "Lors de ta prochaine négociation, avant de défendre ta position, mets-toi à la place de l'autre et écris ce qui serait une victoire pour lui.",
-    sugg: "Suggestions 1 et 3",
+    desc: "Tu sais défendre ce que tu veux, parfois au détriment de l'écoute.",
+    conseil: "Avant de défendre ta position, demande à l'autre ce qui serait une réussite pour lui.",
   },
   pg: {
     label: "Perdant / gagnant",
-    quote: "Je vous laisserai gagner, quitte à perdre moi-même. Je n'oserai pas vivre mes convictions et mes désirs.",
-    desc: "Tu fais attention aux autres, mais tu renonces souvent à ce que toi tu veux. Covey prévient : les sentiments refoulés finissent par ressortir.",
-    defi: "Pense à une situation où tu devras bientôt trouver un accord, et engage-toi à dire clairement ce que tu veux, sans cesser d'écouter l'autre.",
-    sugg: "Suggestion 1",
+    desc: "Tu fais attention aux autres, parfois au détriment de ce que tu veux.",
+    conseil: "Ose dire ce que tu veux, calmement : l'autre ne peut pas le deviner.",
   },
   pp: {
     label: "Perdant / perdant",
-    quote: "Lorsque personne ne gagne, être perdant fait moins mal.",
-    desc: "Dans ces situations, tu évites à la fois le conflit et l'échange : personne n'y gagne vraiment.",
-    defi: "Analyse ton propre scénario : d'où vient ta façon de réagir (famille, école, groupe) ? Est-elle adaptée à ta réalité d'aujourd'hui ?",
-    sugg: "Suggestion 5",
+    desc: "Dans ces situations, tu as tendance à éviter à la fois le conflit et l'échange.",
+    conseil: "Choisis une petite situation cette semaine et dis simplement ce que tu penses.",
   },
 };
 
@@ -109,4 +101,44 @@ export function zoneOf(c, p) {
   return "pp";
 }
 
-export const COUNTDOWN_S = 90;
+// Durée du questionnaire (secondes) et temps ajouté par « + 1 min ».
+export const DEFAULT_DURATION_S = 180;
+export const EXTRA_TIME_S = 60;
+
+// Les 5 étapes du récapitulatif, affichées après la révélation.
+// focus : zones mises en avant sur la carte ; conclusion : flèches vers gagnant/gagnant.
+export const RECAP = [
+  {
+    kicker: "LES SIX PARADIGMES",
+    title: ["LA CARTE", "DE LA SALLE"],
+    text: "Six façons d'interagir avec les autres, une question : qui gagnera le voyage aux Seychelles ? Voici où vous en êtes.",
+    focus: null,
+  },
+  {
+    kicker: "DES SCÉNARIOS APPRIS",
+    title: ["CÉDER", "OU IMPOSER"],
+    text: "Deux réflexes appris à la maison, à l'école, avec les notes qu'on compare. Ce qui s'apprend peut se désapprendre.",
+    focus: ["pg", "gp"],
+  },
+  {
+    kicker: "GAGNANT / GAGNANT OU RIEN",
+    title: ["PERDRE", "ENSEMBLE ?"],
+    text: "Quand aucun accord gagnant n'est possible, mieux vaut ne pas conclure que conclure en perdant tous les deux.",
+    focus: ["pp"],
+  },
+  {
+    kicker: "LE CARACTÈRE",
+    title: ["LA", "MATURITÉ"],
+    text: "Intégrité, maturité, mentalité d'abondance. Pas un juste milieu : beaucoup de courage et beaucoup de prévenance.",
+    focus: ["gg"],
+  },
+  {
+    kicker: "CONCLUSION",
+    title: ["GAGNER", "ENSEMBLE"],
+    text: "Un principe de vie, pas une technique.",
+    focus: ["gg"],
+    conclusion: true,
+  },
+];
+
+export const DIMENSIONS = ["Caractère", "Relations", "Accords", "Systèmes", "Processus"];
